@@ -6,6 +6,11 @@
     <title>Application Form</title>
     <!-- Load Tailwind CSS from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <!-- Load Google Font: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +42,7 @@
             background-color: #ffffff; /* bg-white */
             padding: 0.65rem 0.75rem; /* ~py-2.5 px-3 */
             font-size: 0.875rem; /* text-sm */
-            /* UPDATED: Set to 1rem (16px) which is rounded-2xl */
+            /* Set to 1rem (16px) which is rounded-2xl */
             border-radius: 1rem; 
             transition: all 0.2s ease-in-out;
             color: #111827; /* text-gray-900 */
@@ -64,127 +69,212 @@
 </head>
 <body class="bg-gray-100 p-4 sm:p-8">
 
-    <!-- A4-like container, now with rounded corners and shadow -->
-    <div class="max-w-4xl mx-auto bg-white shadow-xl p-8 sm:p-12 md:p-16 rounded-2xl">
-        <form action="#" method="POST">
-            <!-- Increased spacing between all form groups -->
-            <div class="space-y-8">
+    <!-- 
+      The Download Button is placed *outside* the form container
+      to make capturing just the form easier.
+    -->
+    <div class="max-w-4xl mx-auto">
+        <!-- A4-like container, with ID for PDF generation -->
+        <div id="form-container" class="bg-white shadow-xl p-8 sm:p-12 md:p-16 rounded-2xl">
+            <form action="#" method="POST">
+                <!-- Increased spacing between all form groups -->
+                <div class="space-y-8">
 
-                <!-- Question 1: Physically Disabled -->
-                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-                    <label for="disability_1" class="label-bar-aesthetic rounded-t-lg">Are you physically disabled? If yes, state the form of disability</label>
-                    <div class="p-4 bg-white space-y-3">
-                        <input type="text" id="disability_1" name="disability" class="modern-input" placeholder="Enter details...">
-                        <input type="text" id="disability_2" name="disability_extra_1" class="modern-input">
+                    <!-- Question 1: Physically Disabled -->
+                    <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                        <label for="disability_1" class="label-bar-aesthetic rounded-t-lg">Are you physically disabled? If yes, state the form of disability</label>
+                        <div class="p-4 bg-white space-y-3">
+                            <input type="text" id="disability_1" name="disability" class="modern-input" placeholder="Enter details...">
+                            <input type="text" id="disability_2" name="disability_extra_1" class="modern-input">
+                        </div>
                     </div>
-                </div>
 
-                <!-- Question 2: Tried and Found Guilty -->
-                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-                    <label for="guilty_1" class="label-bar-aesthetic rounded-t-lg">Have you ever been tried and found guilty by any court of law, administrative panel/tribunal for any criminal offence? If yes, state the charge, name of the court, panel or tribunal, year and place</label>
-                    <div class="p-4 bg-white space-y-3">
-                        <input type="text" id="guilty_1" name="guilty" class="modern-input" placeholder="Enter details...">
-                        <input type="text" id="guilty_2" name="guilty_extra_1" class="modern-input">
-                        <input type="text" id="guilty_3" name="guilty_extra_2" class="modern-input">
+                    <!-- Question 2: Tried and Found Guilty -->
+                    <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                        <label for="guilty_1" class="label-bar-aesthetic rounded-t-lg">Have you ever been tried and found guilty by any court of law, administrative panel/tribunal for any criminal offence? If yes, state the charge, name of the court, panel or tribunal, year and place</label>
+                        <div class="p-4 bg-white space-y-3">
+                            <input type="text" id="guilty_1" name="guilty" class="modern-input" placeholder="Enter details...">
+                            <input type="text" id="guilty_2" name="guilty_extra_1" class="modern-input">
+                            <input type="text" id="guilty_3" name="guilty_extra_2" class="modern-input">
+                        </div>
                     </div>
-                </div>
 
-                <!-- Question 3: Verdict -->
-                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-                    <label for="verdict_1" class="label-bar-aesthetic rounded-t-lg">What was the verdict?</label>
-                    <div class="p-4 bg-white space-y-3">
-                        <input type="text" id="verdict_1" name="verdict" class="modern-input" placeholder="Enter verdict...">
-                        <input type="text" id="verdict_2" name="verdict_extra_1" class="modern-input">
+                    <!-- Question 3: Verdict -->
+                    <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                        <label for="verdict_1" class="label-bar-aesthetic rounded-t-lg">What was the verdict?</label>
+                        <div class="p-4 bg-white space-y-3">
+                            <input type="text" id="verdict_1" name="verdict" class="modern-input" placeholder="Enter verdict...">
+                            <input type="text" id="verdict_2" name="verdict_extra_1" class="modern-input">
+                        </div>
                     </div>
-                </div>
 
-                <!-- Question 4: Bankrupt -->
-                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-                    <label for="bankrupt" class="label-bar-aesthetic rounded-t-lg">Declared bankrupt by a court or any competent authority or tribunal?</label>
+                    <!-- Question 4: Bankrupt -->
+                    <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                        <label for="bankrupt" class="label-bar-aesthetic rounded-t-lg">Declared bankrupt by a court or any competent authority or tribunal?</label>
 
-                    <div class="p-4 bg-white">
-                        <input type="text" id="bankrupt" name="bankrupt" class="modern-input" placeholder="Yes / No / Details...">
+                        <div class="p-4 bg-white">
+                            <input type="text" id="bankrupt" name="bankrupt" class="modern-input" placeholder="Yes / No / Details...">
+                        </div>
                     </div>
-                </div>
 
-                <!-- Question 5: Secret Society -->
-                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-                    <label for="secret_society" class="label-bar-aesthetic rounded-t-lg">Are you a member of a secret society?</label>
-                    <div class="p-4 bg-white">
-                        <input type="text" id="secret_society" name="secret_society" class="modern-input" placeholder="Yes / No">
+                    <!-- Question 5: Secret Society -->
+                    <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                        <label for="secret_society" class="label-bar-aesthetic rounded-t-lg">Are you a member of a secret society?</label>
+                        <div class="p-4 bg-white">
+                            <input type="text" id="secret_society" name="secret_society" class="modern-input" placeholder="Yes / No">
+                        </div>
                     </div>
-                </div>
 
-                <!-- Question 6 & 7: APC Membership and Position -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
-                    <div>
-                        <label for="apc_membership" class="inline-label-aesthetic">APC Membership Card No.:</label>
-                        <input type="text" id="apc_membership" name="apc_membership" class="modern-input" placeholder="Enter number...">
+                    <!-- Question 6 & 7: APC Membership and Position -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
+                        <div>
+                            <label for="apc_membership" class="inline-label-aesthetic">APC Membership Card No.:</label>
+                            <input type="text" id="apc_membership" name="apc_membership" class="modern-input" placeholder="Enter number...">
+                        </div>
+                        <div>
+                            <label for="party_position" class="inline-label-aesthetic">Position held in the party?</label>
+                            <input type="text" id="party_position" name="party_position" class="modern-input" placeholder="Enter position...">
+                        </div>
                     </div>
-                    <div>
-                        <label for="party_position" class="inline-label-aesthetic">Position held in the party?</label>
-                        <input type="text" id="party_position" name="party_position" class="modern-input" placeholder="Enter position...">
+                    
+                    <!-- Question 8 & 9: Voter's Card and NIN -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
+                        <div>
+                            <label for="voter_card" class="inline-label-aesthetic">Voter's Registration Card No.:</label>
+                            <input type="text" id="voter_card" name="voter_card" class="modern-input" placeholder="Enter number...">
+                        </div>
+                        <div>
+                            <label for="nin" class="inline-label-aesthetic">National Identification Number (NIN):</label>
+                            <input type="text" id="nin" name="nin" class="modern-input" placeholder="Enter NIN...">
+                        </div>
                     </div>
+
+                    <!-- Question 10: Political Office -->
+                    <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                        <label class="label-bar-aesthetic rounded-t-lg">Have you ever held elective or appointive political office?</label>
+                        <div class="p-4 bg-white grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-6">
+                            <div>
+                                <label for="office_from" class="inline-label-aesthetic">If Yes, From</label>
+                                <input type="text" id="office_from" name="office_from" class="modern-input" placeholder="Year">
+                            </div>
+                            <div>
+                                <label for="office_to" class="inline-label-aesthetic">To</label>
+                                <input type="text" id="office_to" name="office_to" class="modern-input" placeholder="Year">
+                            </div>
+                            <div>
+                                <label for="office_position" class="inline-label-aesthetic">Position Held</label>
+                                <input type="text" id="office_position" name="office_position" class="modern-input" placeholder="Enter position...">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 11: Tax Evidence -->
+                    <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                        <label for="tax_evidence" class="label-bar-aesthetic rounded-t-lg">Have you got evidence of payment of tax for 3 years?</label>
+                        <div class="p-4 bg-white">
+                            <input type="text" id="tax_evidence" name="tax_evidence" class="modern-input" placeholder="Yes / No">
+                            <p class="text-xs font-medium text-gray-600 mt-3">[ATTACH THE TAX CLEARANCE CERTIFICATE]</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 12: Reason for Suitability -->
+                    <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                        <label for="reason_1" class="label-bar-aesthetic rounded-t-lg">Give reason(s) why you should consider yourself suitable to this election in your own handwriting</label>
+                        <div class="p-4 bg-white space-y-3">
+                            <!-- Switched to a textarea for a more appropriate multi-line input -->
+                            <textarea id="reason_1" name="reason" rows="5" class="modern-input" placeholder="Explain your reasons..."></textarea>
+                        </div>
+                    </div>
+
                 </div>
                 
-                <!-- Question 8 & 9: Voter's Card and NIN -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
-                    <div>
-                        <label for="voter_card" class="inline-label-aesthetic">Voter's Registration Card No.:</label>
-                        <input type="text" id="voter_card" name="voter_card" class="modern-input" placeholder="Enter number...">
-                    </div>
-                    <div>
-                        <label for="nin" class="inline-label-aesthetic">National Identification Number (NIN):</label>
-                        <input type="text" id="nin" name="nin" class="modern-input" placeholder="Enter NIN...">
-                    </div>
+                <!-- Page Number -->
+                <div class="text-center text-gray-500 font-medium mt-16">
+                    - 03 -
                 </div>
+            </form>
+        </div>
 
-                <!-- Question 10: Political Office -->
-                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-                    <label class="label-bar-aesthetic rounded-t-lg">Have you ever held elective or appointive political office?</label>
-                    <div class="p-4 bg-white grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-6">
-                        <div>
-                            <label for="office_from" class="inline-label-aesthetic">If Yes, From</label>
-                            <input type="text" id="office_from" name="office_from" class="modern-input" placeholder="Year">
-                        </div>
-                        <div>
-                            <label for="office_to" class="inline-label-aesthetic">To</label>
-                            <input type="text" id="office_to" name="office_to" class="modern-input" placeholder="Year">
-                        </div>
-                        <div>
-                            <label for="office_position" class="inline-label-aesthetic">Position Held</label>
-                            <input type="text" id="office_position" name="office_position" class="modern-input" placeholder="Enter position...">
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Question 11: Tax Evidence -->
-                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-                    <label for="tax_evidence" class="label-bar-aesthetic rounded-t-lg">Have you got evidence of payment of tax for 3 years?</label>
-                    <div class="p-4 bg-white">
-                        <input type="text" id="tax_evidence" name="tax_evidence" class="modern-input" placeholder="Yes / No">
-                        <p class="text-xs font-medium text-gray-600 mt-3">[ATTACH THE TAX CLEARANCE CERTIFICATE]</p>
-                    </div>
-                </div>
+        <!-- Download Button Wrapper -->
+        <div id="download-btn-wrapper" class="mt-8 mb-8 text-center">
+            <button id="download-pdf-btn" type="button" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg transition duration-300 ease-in-out hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-gray-400">
+                Download as PDF
+            </button>
+        </div>
 
-                <!-- Question 12: Reason for Suitability -->
-                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-                    <label for="reason_1" class="label-bar-aesthetic rounded-t-lg">Give reason(s) why you should consider yourself suitable to this election in your own handwriting</label>
-                    <div class="p-4 bg-white space-y-3">
-                        <!-- Switched to a textarea for a more appropriate multi-line input -->
-                        <textarea id="reason_1" name="reason" rows="5" class="modern-input" placeholder="Explain your reasons..."></textarea>
-                    </div>
-                </div>
-
-            </div>
-            
-            <!-- Page Number -->
-            <div class="text-center text-gray-500 font-medium mt-16">
-                - 03 -
-            </div>
-        </form>
     </div>
 
+    <script>
+        // Wait for the window to load all resources
+        window.onload = function() {
+            // Get the jsPDF and html2canvas objects
+            const { jsPDF } = window.jspdf;
+            const h2c = window.html2canvas;
+
+            // Get the button and the form container
+            const downloadBtn = document.getElementById('download-pdf-btn');
+            const formContainer = document.getElementById('form-container');
+
+            // Add click event listener to the button
+            downloadBtn.addEventListener('click', function () {
+                // Set loading state
+                downloadBtn.disabled = true;
+                downloadBtn.textContent = 'Downloading...';
+                
+                // Options for html2canvas to improve quality
+                const options = {
+                    scale: 2, // Renders at 2x resolution
+                    useCORS: true // For any images that might be loaded
+                };
+
+                // Use html2canvas to capture the form container
+                h2c(formContainer, options).then(canvas => {
+                    // Get the image data from the canvas
+                    const imgData = canvas.toDataURL('image/png');
+                    
+                    // A4 dimensions in 'mm'
+                    const pageHeight = 297;
+                    const pageWidth = 210;
+                    
+                    // Initialize jsPDF
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    
+                    // Calculate the dimensions of the image in the PDF
+                    const imgWidth = pageWidth;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    
+                    let heightLeft = imgHeight;
+                    let position = 0;
+
+                    // Add the first page
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    // Add new pages if the content is longer than one page
+                    while (heightLeft > 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+
+                    // Save the PDF
+                    pdf.save('application-form.pdf');
+                    
+                    // Reset button state
+                    downloadBtn.disabled = false;
+                    downloadBtn.textContent = 'Download as PDF';
+
+                }).catch(function(error) {
+                    console.error('Error generating PDF:', error);
+                    // Reset button state even if there's an error
+                    downloadBtn.disabled = false;
+                    downloadBtn.textContent = 'Download as PDF';
+                    // You could show an error message to the user here
+                });
+            });
+        };
+    </script>
 </body>
 </html>
 
