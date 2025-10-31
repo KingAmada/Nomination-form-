@@ -2,802 +2,188 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale-1.0">
-    <title>APC Nomination Form - Ward Congress</title>
-    <!-- Load Tailwind CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form</title>
+    <!-- Load Tailwind CSS from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        /* Use Inter as the default font */
+        body {
+            font-family: 'Inter', sans-serif;
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #4ade80; /* green-400 */
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #16a34a; /* green-600 */
+        
+        /* This class creates the modern, DARKER label bar */
+        .label-bar-aesthetic {
+            display: block;
+            width: 100%;
+            background-color: #374151; /* bg-gray-700 */
+            border-bottom: 1px solid #1f2937; /* border-gray-800 */
+            padding: 0.75rem 1.25rem; /* p-3 px-5 */
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 600; /* semibold */
+            color: #f9fafb; /* text-gray-50 */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        /* Print-specific styles */
-        @media print {
-            body {
-                background: none !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            
-            /* Hide everything that isn't a form page */
-            #front-cover, #back-cover, #form-header {
-                display: none !important;
-            }
-
-            .page-container {
-                width: 100% !important;
-                max-width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                box-shadow: none !important;
-                border-radius: 0 !important;
-                border: none !important;
-                page-break-after: always; /* Force a new page */
-            }
-
-            .page-container:last-of-type {
-                page-break-after: auto;
-            }
-
-            .page-footer {
-                display: block !important;
-                position: fixed;
-                bottom: 20px;
-                left: 0;
-                right: 0;
-                text-align: center;
-                font-size: 10pt;
-                color: #777 !important;
-            }
-
-            .no-print {
-                display: none !important;
-            }
-            
-            /* Ensure fieldsets don't break across pages */
-            fieldset {
-                page-break-inside: avoid;
-            }
+        /* This class creates the modern, SUPER-ROUNDED input style */
+        .modern-input {
+            width: 100%;
+            border: 1px solid #d1d5db; /* border-gray-300 */
+            background-color: #ffffff; /* bg-white */
+            padding: 0.65rem 0.75rem; /* ~py-2.5 px-3 */
+            font-size: 0.875rem; /* text-sm */
+            /* UPDATED: Set to 1rem (16px) which is rounded-2xl */
+            border-radius: 1rem; 
+            transition: all 0.2s ease-in-out;
+            color: #111827; /* text-gray-900 */
         }
+        
+        .modern-input:focus {
+            outline: none;
+            border-color: #3b82f6; /* focus:border-blue-500 */
+            /* A soft, modern blue ring (slightly stronger) */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* This class is for the inline labels (like APC No.) */
+        .inline-label-aesthetic {
+            display: block;
+            margin-bottom: 0.35rem; /* mb-1.5 */
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* medium */
+            color: #374151; /* text-gray-700 */
+            white-space: nowrap; 
+        }
+
     </style>
 </head>
-<body class="bg-gray-200 font-sans antialiased">
+<body class="bg-gray-100 p-4 sm:p-8">
 
-    <!-- 
-      FRONT COVER SECTION 
-    -->
-    <div id="front-cover" class="container mx-auto max-w-5xl my-4 sm:my-8">
-        <div class="bg-white shadow-xl rounded-lg overflow-hidden">
-            <!-- Top White Section -->
-            <div class="p-6 sm:p-10 text-center">
-                <img 
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvM8DZJPqwfmZac5rh6pjDtYZ3oPDEpgwPNhTZtOb70k4oBmHI7UTAP_mV&s=10" 
-                    alt="APC Logo" 
-                    class="w-40 h-auto mx-auto mb-4"
-                    onerror="this.style.display='none'"
-                >
-                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 tracking-wide">ALL PROGRESSIVES CONGRESS</h2>
-                <p class="text-sm text-gray-500">Justice, Peace and Unity</p>
-                
-                <h1 class="text-4xl sm:text-6xl font-extrabold my-8">
-                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-blue-600">NOMINATION</span>
-                    <span class="text-gray-800">FORM</span>
-                </h1>
-            </div>
-            
-            <!-- Bottom Blue Section -->
-            <div class="bg-gradient-to-r from-teal-500 to-blue-600 p-6 sm:p-10">
-                <div class="max-w-md mx-auto text-center">
-                    <h2 class="text-4xl sm:text-5xl font-bold text-white shadow-sm">WARD CONGRESS</h2>
-                    
-                    <!-- Position Box -->
-                    <div class="bg-white rounded-lg p-4 mt-8 shadow-lg">
-                        <span class="text-sm font-medium text-gray-500">POSITION:</span>
-                        <span class="text-lg font-bold text-gray-900 ml-2">Ex-Officio (VI)</span>
-                        <p class="text-xs text-gray-400 mt-1">(Example from uploaded image)</p>
+    <!-- A4-like container, now with rounded corners and shadow -->
+    <div class="max-w-4xl mx-auto bg-white shadow-xl p-8 sm:p-12 md:p-16 rounded-2xl">
+        <form action="#" method="POST">
+            <!-- Increased spacing between all form groups -->
+            <div class="space-y-8">
+
+                <!-- Question 1: Physically Disabled -->
+                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                    <label for="disability_1" class="label-bar-aesthetic rounded-t-lg">Are you physically disabled? If yes, state the form of disability</label>
+                    <div class="p-4 bg-white space-y-3">
+                        <input type="text" id="disability_1" name="disability" class="modern-input" placeholder="Enter details...">
+                        <input type="text" id="disability_2" name="disability_extra_1" class="modern-input">
                     </div>
-
-                    <!-- Open Form Button -->
-                    <button id="open-form-btn" class="mt-8 w-full bg-white text-green-700 font-bold text-lg py-4 px-8 rounded-lg shadow-xl hover:bg-gray-100 hover:scale-105 transform transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-300 no-print">
-                        Open Nomination Form
-                    </button>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 
-      MAIN FORM CONTENT 
-    -->
-    <div id="form-content" class="hidden">
-        <div class="container mx-auto max-w-4xl p-4 sm:p-8">
-            
-            <!-- Form Header (Simplified) -->
-            <header id="form-header" class="bg-white shadow-xl rounded-lg overflow-hidden mb-8">
-                <div class="bg-gradient-to-r from-green-600 via-blue-600 to-red-600 p-1"></div>
-                <div class="p-6 sm:p-10 flex flex-col sm:flex-row items-center sm:justify-between">
+                <!-- Question 2: Tried and Found Guilty -->
+                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                    <label for="guilty_1" class="label-bar-aesthetic rounded-t-lg">Have you ever been tried and found guilty by any court of law, administrative panel/tribunal for any criminal offence? If yes, state the charge, name of the court, panel or tribunal, year and place</label>
+                    <div class="p-4 bg-white space-y-3">
+                        <input type="text" id="guilty_1" name="guilty" class="modern-input" placeholder="Enter details...">
+                        <input type="text" id="guilty_2" name="guilty_extra_1" class="modern-input">
+                        <input type="text" id="guilty_3" name="guilty_extra_2" class="modern-input">
+                    </div>
+                </div>
+
+                <!-- Question 3: Verdict -->
+                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                    <label for="verdict_1" class="label-bar-aesthetic rounded-t-lg">What was the verdict?</label>
+                    <div class="p-4 bg-white space-y-3">
+                        <input type="text" id="verdict_1" name="verdict" class="modern-input" placeholder="Enter verdict...">
+                        <input type="text" id="verdict_2" name="verdict_extra_1" class="modern-input">
+                    </div>
+                </div>
+
+                <!-- Question 4: Bankrupt -->
+                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                    <label for="bankrupt" class="label-bar-aesthetic rounded-t-lg">Declared bankrupt by a court or any competent authority or tribunal?</label>
+
+                    <div class="p-4 bg-white">
+                        <input type="text" id="bankrupt" name="bankrupt" class="modern-input" placeholder="Yes / No / Details...">
+                    </div>
+                </div>
+
+                <!-- Question 5: Secret Society -->
+                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                    <label for="secret_society" class="label-bar-aesthetic rounded-t-lg">Are you a member of a secret society?</label>
+                    <div class="p-4 bg-white">
+                        <input type="text" id="secret_society" name="secret_society" class="modern-input" placeholder="Yes / No">
+                    </div>
+                </div>
+
+                <!-- Question 6 & 7: APC Membership and Position -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-800">NOMINATION FORM</h1>
-                        <p class="text-xl text-gray-600 mt-1">WARD CONGRESS</p>
+                        <label for="apc_membership" class="inline-label-aesthetic">APC Membership Card No.:</label>
+                        <input type="text" id="apc_membership" name="apc_membership" class="modern-input" placeholder="Enter number...">
                     </div>
-                    <img 
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvM8DZJPqwfmZac5rh6pjDtYZ3oPDEpgwPNhTZtOb70k4oBmHI7UTAP_mV&s=10" 
-                        alt="APC Logo" 
-                        class="w-32 h-auto mt-4 sm:mt-0"
-                        onerror="this.style.display='none'"
-                    >
-                </div>
-            </header>
-
-            <!-- Main Form -->
-            <form action="#" method="POST">
-                
-                <!-- PAGE 1: Personal Details -->
-                <div class="page-container bg-white shadow-xl rounded-lg overflow-hidden mb-8">
-                    <fieldset class="p-6 sm:p-10">
-                        <legend class="text-2xl font-semibold text-green-700 border-b-2 border-green-200 pb-2 mb-6 w-full">
-                            Part 1: Aspirant's Personal Details
-                        </legend>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Position -->
-                            <div class="md:col-span-2">
-                                <label for="position" class="block text-sm font-medium text-gray-700">Position Vying For (from cover)</label>
-                                <input type="text" name="position" id="position" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                            </div>
-                            <!-- Date of Filing -->
-                            <div>
-                                <label for="date_filled" class="block text-sm font-medium text-gray-700">Date</label>
-                                <input type="date" name="date_filled" id="date_filled" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                            </div>
-                            <!-- Name of Aspirant -->
-                            <div>
-                                <label for="aspirant_name" class="block text-sm font-medium text-gray-700">Name of Aspirant</label>
-                                <input type="text" name="aspirant_name" id="aspirant_name" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                            </div>
-                            <!-- Nationality -->
-                            <div>
-                                <label for="nationality" class="block text-sm font-medium text-gray-700">Nationality</label>
-                                <input type="text" name="nationality" id="nationality" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                            </div>
-                            <!-- State -->
-                            <div>
-                                <label for="state_origin" class="block text-sm font-medium text-gray-700">State of Origin</label>
-                                <input type="text" name="state_origin" id="state_origin" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                            </div>
-                            <!-- L.G.A -->
-                            <div>
-                                <label for="lga_origin" class="block text-sm font-medium text-gray-700">L.G.A.</label>
-                                <input type="text" name="lga_origin" id="lga_origin" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                            </div>
-                            <!-- Ward -->
-                            <div>
-                                <label for="ward_origin" class="block text-sm font-medium text-gray-700">Ward</label>
-                                <input type="text" name="ward_origin" id="ward_origin" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                            </div>
-                            <!-- Marital Status -->
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-700">Marital Status</label>
-                                <div class="mt-2 flex flex-wrap items-center gap-x-6 gap-y-2">
-                                    <div class="flex items-center">
-                                        <input id="status_married" name="marital_status" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500">
-                                        <label for="status_married" class="ml-2 block text-sm text-gray-900">Married</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="status_single" name="marital_status" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500">
-                                        <label for="status_single" class="ml-2 block text-sm text-gray-900">Single</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="status_divorced" name="marital_status" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500">
-                                        <label for="status_divorced" class="ml-2 block text-sm text-gray-900">Divorced</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Contact Address -->
-                            <div class="md:col-span-2">
-                                <label for="contact_address" class="block text-sm font-medium text-gray-700">Contact Address</label>
-                                <textarea id="contact_address" name="contact_address" rows="3" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"></textarea>
-                            </div>
-                            <!-- Permanent Address -->
-                            <div class="md:col-span-2">
-                                <label for="permanent_address" class="block text-sm font-medium text-gray-700">Permanent Address for the past 12 months</label>
-                                <textarea id="permanent_address" name="permanent_address" rows="3" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"></textarea>
-                            </div>
-                            <!-- Date of Birth -->
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-700">Date of Birth</label>
-                                <div class="mt-1 grid grid-cols-3 gap-4">
-                                    <div>
-                                        <input type="text" name="dob_dd" id="dob_dd" placeholder="DD" maxlength="2" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <input type="text" name="dob_mm" id="dob_mm" placeholder="MM" maxlength="2" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <input type="text" name="dob_yy" id="dob_yy" placeholder="YYYY" maxlength="4" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    </div>
-                                </div>
-                                <p class="mt-1 text-xs text-gray-500">(Attach Birth Certificate or Declaration of Age)</p>
-                            </div>
-                            <!-- Position Vying For (State Level) -->
-                            <div class="md:col-span-2">
-                                <label for="state_position" class="block text-sm font-medium text-gray-700">State Position You Are Vying For <span class="font-normal text-gray-500">(Indicate the appropriate level)</span></label>
-                                <input type="text" name="state_position" id="state_position" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                            </div>
-                            <!-- Ward, LGA, State, Zonal -->
-                            <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                                <div>
-                                    <label for="pos_ward" class="block text-sm font-medium text-gray-700">Ward</label>
-                                    <input type="text" name="pos_ward" id="pos_ward" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="pos_lga" class="block text-sm font-medium text-gray-700">L.G.A.</label>
-                                    <input type="text" name="pos_lga" id="pos_lga" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="pos_state" class="block text-sm font-medium text-gray-700">State</label>
-                                    <input type="text" name="pos_state" id="pos_state" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="pos_zonal" class="block text-sm font-medium text-gray-700">Zonal</label>
-                                    <input type="text" name="pos_zonal" id="pos_zonal" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <div class="page-footer text-center text-sm text-gray-400 py-4 border-t">Page 1 of 9</div>
-                </div>
-
-                <!-- PAGE 2: Educational History -->
-                <div class="page-container bg-white shadow-xl rounded-lg overflow-hidden mb-8">
-                    <fieldset class="p-6 sm:p-10">
-                        <legend class="text-2xl font-semibold text-green-700 border-b-2 border-green-200 pb-2 mb-6 w-full">
-                            Part 2: Educational Institutions Attended
-                        </legend>
-
-                        <!-- Helper function to create date range inputs -->
-                        <script>
-                            function createDateRange(idPrefix) {
-                                return `
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <label for="${idPrefix}_from" class="block text-xs font-medium text-gray-500">From</label>
-                                            <input type="text" name="${idPrefix}_from" id="${idPrefix}_from" placeholder="MM/YYYY" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                        </div>
-                                        <div>
-                                            <label for="${idPrefix}_to" class="block text-xs font-medium text-gray-500">To</label>
-                                            <input type="text" name="${idPrefix}_to" id="${idPrefix}_to" placeholder="MM/YYYY" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                        </div>
-                                    </div>
-                                `;
-                            }
-                        </script>
-
-                        <!-- Primary School(s) -->
-                        <div class="mb-6">
-                            <h4 class="text-md font-medium text-gray-800 mb-2">Primary School(s)</h4>
-                            <div class="space-y-4">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="School Name 1" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="primary_1_dates"></div>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="School Name 2" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="primary_2_dates"></div>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="School Name 3" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="primary_3_dates"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Secondary School(s) -->
-                        <div class="mb-6">
-                            <h4 class="text-md font-medium text-gray-800 mb-2">Secondary School/Teacher's Training College or Equivalent</h4>
-                            <div class="space-y-4">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="School Name 1" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="secondary_1_dates"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Post Secondary Institution(s) -->
-                        <div class="mb-6">
-                            <h4 class="text-md font-medium text-gray-800 mb-2">Post Secondary Institution(s)</h4>
-                            <div class="space-y-4">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="Institution Name 1" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="post_secondary_1_dates"></div>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="Institution Name 2" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="post_secondary_2_dates"></div>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="Institution Name 3" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="post_secondary_3_dates"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- University -->
-                        <div class="mb-6">
-                            <h4 class="text-md font-medium text-gray-800 mb-2">University</h4>
-                            <div class="space-y-4">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="University Name 1" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="uni_1_dates"></div>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="University Name 2" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="uni_2_dates"></div>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="University Name 3" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="uni_3_dates"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- NYSC -->
-                        <div class="mb-6">
-                            <h4 class="text-md font-medium text-gray-800 mb-2">NYSC (If Applicable)</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <input type="text" placeholder="Service Details" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                <div id="nysc_dates"></div>
-                            </div>
-                        </div>
-
-                        <!-- Qualification Obtained -->
-                        <div class="mb-6">
-                            <h4 class="text-md font-medium text-gray-800 mb-2">Qualification Obtained</h4>
-                            <div class="space-y-4">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="Qualification 1" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="qual_1_dates"></div>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="Qualification 2" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="qual_2_dates"></div>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="text" placeholder="Qualification 3" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    <div id="qual_3_dates"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Employment -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="occupation" class="block text-sm font-medium text-gray-700">Current Employment or Occupation</label>
-                                <input type="text" name="occupation" id="occupation" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                            </div>
-                            <div>
-                                <label for="emp_position" class="block text-sm font-medium text-gray-700">Position</label>
-                                <input type="text" name="emp_position" id="emp_position" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                            </div>
-                            <div class="md:col-span-2">
-                                <label for="retirement_date" class="block text-sm font-medium text-gray-700">Date of Retirement or Resignation, if Applicable</label>
-                                <input type="date" name="retirement_date" id="retirement_date" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                            </div>
-                        </div>
-
-                        <!-- Script to populate date ranges -->
-                        <script>
-                            document.getElementById('primary_1_dates').innerHTML = createDateRange('primary_1');
-                            document.getElementById('primary_2_dates').innerHTML = createDateRange('primary_2');
-                            document.getElementById('primary_3_dates').innerHTML = createDateRange('primary_3');
-                            document.getElementById('secondary_1_dates').innerHTML = createDateRange('secondary_1');
-                            document.getElementById('post_secondary_1_dates').innerHTML = createDateRange('post_secondary_1');
-                            document.getElementById('post_secondary_2_dates').innerHTML = createDateRange('post_secondary_2');
-                            document.getElementById('post_secondary_3_dates').innerHTML = createDateRange('post_secondary_3');
-                            document.getElementById('uni_1_dates').innerHTML = createDateRange('uni_1');
-                            document.getElementById('uni_2_dates').innerHTML = createDateRange('uni_2');
-                            document.getElementById('uni_3_dates').innerHTML = createDateRange('uni_3');
-                            document.getElementById('nysc_dates').innerHTML = createDateRange('nysc');
-                            document.getElementById('qual_1_dates').innerHTML = createDateRange('qual_1');
-                            document.getElementById('qual_2_dates').innerHTML = createDateRange('qual_2');
-                            document.getElementById('qual_3_dates').innerHTML = createDateRange('qual_3');
-                        </script>
-                    </fieldset>
-                    <div class="page-footer text-center text-sm text-gray-400 py-4 border-t">Page 2 of 9</div>
+                    <div>
+                        <label for="party_position" class="inline-label-aesthetic">Position held in the party?</label>
+                        <input type="text" id="party_position" name="party_position" class="modern-input" placeholder="Enter position...">
+                    </div>
                 </div>
                 
-                <!-- PAGE 3: Declarations & History -->
-                <div class="page-container bg-white shadow-xl rounded-lg overflow-hidden mb-8">
-                    <fieldset class="p-6 sm:p-10">
-                        <legend class="text-2xl font-semibold text-green-700 border-b-2 border-green-200 pb-2 mb-6 w-full">
-                            Part 3: Declarations & History
-                        </legend>
-                        <div class="space-y-6">
-                            <!-- Physically Disabled -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Are you physically disabled?</label>
-                                <div class="mt-2 flex items-center space-x-6">
-                                    <div class="flex items-center">
-                                        <input id="disabled_yes" name="is_disabled" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500" onclick="document.getElementById('disability_details').style.display='block'">
-                                        <label for="disabled_yes" class="ml-2 block text-sm text-gray-900">Yes</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="disabled_no" name="is_disabled" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500" onclick="document.getElementById('disability_details').style.display='none'">
-                                        <label for="disabled_no" class="ml-2 block text-sm text-gray-900">No</label>
-                                    </div>
-                                </div>
-                                <textarea id="disability_details" name="disability_details" rows="2" placeholder="If yes, state the form of disability" class="mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" style="display: none;"></textarea>
-                            </div>
-
-                            <!-- Found Guilty -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Have you ever been tried and found guilty by any court of law, administrative panel/tribunal for any criminal offence?</label>
-                                <div class="mt-2 flex items-center space-x-6">
-                                    <div class="flex items-center">
-                                        <input id="guilty_yes" name="is_guilty" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500" onclick="document.getElementById('guilty_details_container').style.display='block'">
-                                        <label for="guilty_yes" class="ml-2 block text-sm text-gray-900">Yes</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="guilty_no" name="is_guilty" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500" onclick="document.getElementById('guilty_details_container').style.display='none'">
-                                        <label for="guilty_no" class="ml-2 block text-sm text-gray-900">No</label>
-                                    </div>
-                                </div>
-                                <div id="guilty_details_container" class="mt-2 space-y-4" style="display: none;">
-                                    <textarea name="guilty_details" rows="3" placeholder="If yes, state the charge, name of the court, panel or tribunal, year and place" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"></textarea>
-                                    <textarea name="verdict" rows="2" placeholder="What was the verdict?" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"></textarea>
-                                </div>
-                            </div>
-
-                            <!-- Bankrupt -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Declared bankrupt by a court or any competent authority or tribunal?</label>
-                                <div class="mt-2 flex items-center space-x-6">
-                                    <div class="flex items-center">
-                                        <input id="bankrupt_yes" name="is_bankrupt" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500">
-                                        <label for="bankrupt_yes" class="ml-2 block text-sm text-gray-900">Yes</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="bankrupt_no" name="is_bankrupt" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500">
-                                        <label for="bankrupt_no" class="ml-2 block text-sm text-gray-900">No</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Secret Society -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Are you a member of a secret society?</label>
-                                <div class="mt-2 flex items-center space-x-6">
-                                    <div class="flex items-center">
-                                        <input id="secret_society_yes" name="is_secret_society" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500">
-                                        <label for="secret_society_yes" class="ml-2 block text-sm text-gray-900">Yes</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="secret_society_no" name="is_secret_society" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500">
-                                        <label for="secret_society_no" class="ml-2 block text-sm text-gray-900">No</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Party & National IDs -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                                <div>
-                                    <label for="apc_membership_no" class="block text-sm font-medium text-gray-700">APC Membership Card No.:</label>
-                                    <input type="text" name="apc_membership_no" id="apc_membership_no" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="party_position" class="block text-sm font-medium text-gray-700">Position held in the party?</label>
-                                    <input type="text" name="party_position" id="party_position" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="voter_card_no" class="block text-sm font-medium text-gray-700">Voter's Registration Card No.:</label>
-                                    <input type="text" name="voter_card_no" id="voter_card_no" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="nin" class="block text-sm font-medium text-gray-700">National Identification Number (NIN)</label>
-                                    <input type="text" name="nin" id="nin" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                </div>
-                            </div>
-
-                            <!-- Held Office -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Have you ever held elective or appointive political office?</label>
-                                <div class="mt-2 flex items-center space-x-6">
-                                    <div class="flex items-center">
-                                        <input id="office_yes" name="held_office" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500" onclick="document.getElementById('office_details').style.display='grid'">
-                                        <label for="office_yes" class="ml-2 block text-sm text-gray-900">Yes</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="office_no" name="held_office" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500" onclick="document.getElementById('office_details').style.display='none'">
-                                        <label for="office_no" class="ml-2 block text-sm text-gray-900">No</label>
-                                    </div>
-                                </div>
-                                <div id="office_details" class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-4" style="display: none;">
-                                    <div>
-                                        <label for="office_from" class="block text-xs font-medium text-gray-500">From</label>
-                                        <input type="text" name="office_from" id="office_from" placeholder="MM/YYYY" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label for="office_to" class="block text-xs font-medium text-gray-500">To</label>
-                                        <input type="text" name="office_to" id="office_to" placeholder="MM/YYYY" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    </div>
-                                    <div class="sm:col-span-1">
-                                        <label for="office_position" class="block text-xs font-medium text-gray-500">Position Held</label>
-                                        <input type="text" name="office_position" id="office_position" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Tax Evidence -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Have you got evidence of payment of tax for 3 years?</label>
-                                <div class="mt-2 flex items-center space-x-6">
-                                    <div class="flex items-center">
-                                        <input id="tax_yes" name="has_tax" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500" onclick="document.getElementById('tax_upload').style.display='block'">
-                                        <label for="tax_yes" class="ml-2 block text-sm text-gray-900">Yes</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="tax_no" name="has_tax" type="radio" class="h-4 w-4 border-gray-300 text-green-600 focus:ring-green-500" onclick="document.getElementById('tax_upload').style.display='none'">
-                                        <label for="tax_no" class="ml-2 block text-sm text-gray-900">No</label>
-                                    </div>
-                                </div>
-                                <div id="tax_upload" class="mt-2" style="display: none;">
-                                    <label for="tax_certificate" class="block text-sm font-medium text-gray-700">Attach Tax Clearance Certificate</label>
-                                    <input type="file" name="tax_certificate" id="tax_certificate" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
-                                </div>
-                            </div>
-
-                            <!-- Reason for Suitability -->
-                            <div>
-                                <label for="reason" class="block text-sm font-medium text-gray-700">Give reason(s) why you should consider yourself suitable to this election (in your own handwriting)</label>
-                                <p class="text-xs text-gray-500 mb-1">Please type your reasons below.</p>
-                                <textarea id="reason" name="reason" rows="5" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"></textarea>
-                            </div>
-
-                        </div>
-                    </fieldset>
-                    <div class="page-footer text-center text-sm text-gray-400 py-4 border-t">Page 3 of 9</div>
+                <!-- Question 8 & 9: Voter's Card and NIN -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
+                    <div>
+                        <label for="voter_card" class="inline-label-aesthetic">Voter's Registration Card No.:</label>
+                        <input type="text" id="voter_card" name="voter_card" class="modern-input" placeholder="Enter number...">
+                    </div>
+                    <div>
+                        <label for="nin" class="inline-label-aesthetic">National Identification Number (NIN):</label>
+                        <input type="text" id="nin" name="nin" class="modern-input" placeholder="Enter NIN...">
+                    </div>
                 </div>
 
-                <!-- Nominator Template -->
-                <script>
-                    function createNominatorBlock(index) {
-                        return `
-                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
-                                <h5 class="text-md font-semibold text-gray-800 mb-3">Nominator ${index}</h5>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label for="nominator_${index}_name" class="block text-xs font-medium text-gray-600">(A) Name</label>
-                                        <input type="text" name="nominator_${index}_name" id="nominator_${index}_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label for="nominator_${index}_apc_no" class="block text-xs font-medium text-gray-600">(B) APC Membership Card No.</label>
-                                        <input type="text" name="nominator_${index}_apc_no" id="nominator_${index}_apc_no" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label for="nominator_${index}_lga" class="block text-xs font-medium text-gray-600">(C) L.G.A.</label>
-                                        <input type="text" name="nominator_${index}_lga" id="nominator_${index}_lga" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label for="nominator_${index}_ward" class="block text-xs font-medium text-gray-600">(D) Ward</label>
-                                        <input type="text" name="nominator_${index}_ward" id="nominator_${index}_ward" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    </div>
-                                    <div class="md:col-span-2">
-                                        <label for="nominator_${index}_voter_no" class="block text-xs font-medium text-gray-600">(E) Voter's Reg. Card No.</label>
-                                        <input type="text" name="nominator_${index}_voter_no" id="nominator_${index}_voter_no" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    }
-                </script>
-
-                <!-- PAGE 4: Nominators 1-4 -->
-                <div class="page-container bg-white shadow-xl rounded-lg overflow-hidden mb-8">
-                    <fieldset class="p-6 sm:p-10">
-                        <legend class="text-2xl font-semibold text-green-700 border-b-2 border-green-200 pb-2 mb-6 w-full">
-                            Part 4: Nominators
-                        </legend>
-                        <p class="text-sm text-gray-600 mb-6">We, the undersigned are the nominators of the above named aspirant for the Congress:</p>
-                        
-                        <div id="nominator-list-1" class="space-y-6">
-                            <!-- JS will populate 1-4 here -->
+                <!-- Question 10: Political Office -->
+                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                    <label class="label-bar-aesthetic rounded-t-lg">Have you ever held elective or appointive political office?</label>
+                    <div class="p-4 bg-white grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-6">
+                        <div>
+                            <label for="office_from" class="inline-label-aesthetic">If Yes, From</label>
+                            <input type="text" id="office_from" name="office_from" class="modern-input" placeholder="Year">
                         </div>
-                    </fieldset>
-                    <div class="page-footer text-center text-sm text-gray-400 py-4 border-t">Page 4 of 9</div>
-                </div>
-
-                <!-- PAGE 5: Nominators 5-8 -->
-                <div class="page-container bg-white shadow-xl rounded-lg overflow-hidden mb-8">
-                    <fieldset class="p-6 sm:p-10">
-                        <legend class="text-2xl font-semibold text-green-700 border-b-2 border-green-200 pb-2 mb-6 w-full">
-                            Part 4: Nominators (Continued)
-                        </legend>
-                        <div id="nominator-list-2" class="space-y-6">
-                            <!-- JS will populate 5-8 here -->
+                        <div>
+                            <label for="office_to" class="inline-label-aesthetic">To</label>
+                            <input type="text" id="office_to" name="office_to" class="modern-input" placeholder="Year">
                         </div>
-                    </fieldset>
-                    <div class="page-footer text-center text-sm text-gray-400 py-4 border-t">Page 5 of 9</div>
-                </div>
-                
-                <!-- PAGE 6: Nominators 9-12 -->
-                <div class="page-container bg-white shadow-xl rounded-lg overflow-hidden mb-8">
-                    <fieldset class="p-6 sm:p-10">
-                        <legend class="text-2xl font-semibold text-green-700 border-b-2 border-green-200 pb-2 mb-6 w-full">
-                            Part 4: Nominators (Continued)
-                        </legend>
-                        <div id="nominator-list-3" class="space-y-6">
-                            <!-- JS will populate 9-12 here -->
-                        </div>
-                    </fieldset>
-                    <div class="page-footer text-center text-sm text-gray-400 py-4 border-t">Page 6 of 9</div>
-                </div>
-
-                <!-- PAGE 7: Nominators 13-16 -->
-                <div class="page-container bg-white shadow-xl rounded-lg overflow-hidden mb-8">
-                    <fieldset class="p-6 sm:p-10">
-                        <legend class="text-2xl font-semibold text-green-700 border-b-2 border-green-200 pb-2 mb-6 w-full">
-                            Part 4: Nominators (Continued)
-                        </legend>
-                        <div id="nominator-list-4" class="space-y-6">
-                            <!-- JS will populate 13-16 here -->
-                        </div>
-                    </fieldset>
-                    <div class="page-footer text-center text-sm text-gray-400 py-4 border-t">Page 7 of 9</div>
-                </div>
-
-                <!-- PAGE 8: Nominators 17-20 -->
-                <div class="page-container bg-white shadow-xl rounded-lg overflow-hidden mb-8">
-                    <fieldset class="p-6 sm:p-10">
-                        <legend class="text-2xl font-semibold text-green-700 border-b-2 border-green-200 pb-2 mb-6 w-full">
-                            Part 4: Nominators (Continued)
-                        </legend>
-                        <div id="nominator-list-5" class="space-y-6">
-                            <!-- JS will populate 17-20 here -->
-                        </div>
-                    </fieldset>
-                    <div class="page-footer text-center text-sm text-gray-400 py-4 border-t">Page 8 of 9</div>
-                </div>
-                
-                <!-- Nominator Population Script -->
-                <script>
-                    (function() {
-                        const list1 = document.getElementById('nominator-list-1');
-                        if (list1) {
-                            for (let i = 1; i <= 4; i++) {
-                                list1.innerHTML += createNominatorBlock(i);
-                            }
-                        }
-                        
-                        const list2 = document.getElementById('nominator-list-2');
-                        if (list2) {
-                            for (let i = 5; i <= 8; i++) {
-                                list2.innerHTML += createNominatorBlock(i);
-                            }
-                        }
-
-                        const list3 = document.getElementById('nominator-list-3');
-                        if (list3) {
-                            for (let i = 9; i <= 12; i++) {
-                                list3.innerHTML += createNominatorBlock(i);
-                            }
-                        }
-
-                        const list4 = document.getElementById('nominator-list-4');
-                        if (list4) {
-                            for (let i = 13; i <= 16; i++) {
-                                list4.innerHTML += createNominatorBlock(i);
-                            }
-                        }
-
-                        const list5 = document.getElementById('nominator-list-5');
-                        if (list5) {
-                            for (let i = 17; i <= 20; i++) {
-                                list5.innerHTML += createNominatorBlock(i);
-                            }
-                        }
-                    })();
-                </script>
-
-                <!-- PAGE 9: Official Use & Submit -->
-                <div class="page-container bg-white shadow-xl rounded-lg overflow-hidden mb-8">
-                    <!-- Section 5: For Official Use Only -->
-                    <fieldset class="p-6 sm:p-10 bg-gray-50">
-                        <legend class="text-xl font-semibold text-gray-500 pb-2 mb-6 w-full">
-                            For Official Use Only
-                        </legend>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="official_bank" class="block text-sm font-medium text-gray-700">Bank</label>
-                                <input type="text" name="official_bank" id="official_bank" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm bg-gray-200 sm:text-sm" disabled>
-                            </div>
-                            <div>
-                                <label for="official_tel" class="block text-sm font-medium text-gray-700">Tel Number</label>
-                                <input type="text" name="official_tel" id="official_tel" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm bg-gray-200 sm:text-sm" disabled>
-                            </div>
-                            <div class="md:col-span-2">
-                                <label for="official_signature" class="block text-sm font-medium text-gray-700">Signature</label>
-                                <input type="text" name="official_signature" id="official_signature" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm bg-gray-200 sm:text-sm" disabled>
-                            </div>
-                        </div>
-                    </fieldset>
-                    
-                    <!-- Form Submission -->
-                    <div class="p-6 sm:p-10 border-t border-gray-200 bg-gray-50 no-print">
-                        <div class="flex justify-end">
-                            <button type="submit" class="inline-flex justify-center rounded-lg border border-transparent bg-green-600 py-3 px-8 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200">
-                                Submit Nomination Form
-                            </button>
+                        <div>
+                            <label for="office_position" class="inline-label-aesthetic">Position Held</label>
+                            <input type="text" id="office_position" name="office_position" class="modern-input" placeholder="Enter position...">
                         </div>
                     </div>
-                    <div class="page-footer text-center text-sm text-gray-400 py-4 border-t">Page 9 of 9</div>
-                </div>
-
-            </form>
-        </div>
-    </div>
-
-    <!-- 
-      BACK COVER SECTION 
-    -->
-    <div id="back-cover" class="container mx-auto max-w-5xl my-4 sm:my-8">
-        <footer class="mt-8 bg-white shadow-xl rounded-lg overflow-hidden">
-            <div class="p-6 sm:p-10 text-center">
-                <h3 class="text-3xl font-bold text-teal-600 opacity-80">
-                    CONGRESS NOMINATION FORM
-                </h3>
-            </div>
-            
-            <!-- Wavy divider approximation -->
-            <div class="h-8 bg-gradient-to-t from-gray-200 to-white -mt-4"></div>
-            
-            <div class="bg-gray-200 p-6 sm:p-10 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-                <div class="mb-6 md:mb-0">
-                    <img 
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvM8DZJPqwfmZac5rh6pjDtYZ3oPDEpgwPNhTZtOb70k4oBmHI7UTAP_mV&s=10" 
-                        alt="APC Logo" 
-                        class="w-32 h-auto mx-auto md:mx-0 mb-4"
-                        onerror="this.style.display='none'"
-                    >
-                    <p class="text-sm text-gray-600 font-semibold">NATIONAL SECRETARIAT</p>
-                    <p class="text-sm text-gray-600">No. 40, Blantyre Street, Wuse II, Abuja, Nigeria.</p>
-                    <p class="text-sm text-blue-600 hover:underline">www.officialapcng.com</p>
                 </div>
                 
-                <!-- QR Code Placeholder -->
-                <div class="flex-shrink-0">
-                    <svg class="w-24 h-24 text-gray-800" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M148,108V68h40v40Zm-20,20a20,20,0,1,1,20-20A20,20,0,0,1,128,128Zm20-60a20,20,0,1,1,20-20A20,20,0,0,1,148,68Zm-40,0a20,20,0,1,1,20-20A20,20,0,0,1,108,68ZM88,48A40,40,0,1,0,48,88,40,40,0,0,0,88,48Zm0,24A16,16,0,1,1,72,88,16,16,0,0,1,88,72ZM168,48a40,40,0,1,0,40,40A40,40,0,0,0,168,48Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,168,112ZM88,148a40,40,0,1,0,40,40A40,40,0,0,0,88,148Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,88,212Zm80-64H148v40h20v20h20V188h20V148Zm-20,20v-20h-20v20Zm20,20v-20h20v20ZM108,148H68v40h40v20h20V188h20V148Zm-20,20v-20H68v20Z"></path>
-                    </svg>
+                <!-- Question 11: Tax Evidence -->
+                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                    <label for="tax_evidence" class="label-bar-aesthetic rounded-t-lg">Have you got evidence of payment of tax for 3 years?</label>
+                    <div class="p-4 bg-white">
+                        <input type="text" id="tax_evidence" name="tax_evidence" class="modern-input" placeholder="Yes / No">
+                        <p class="text-xs font-medium text-gray-600 mt-3">[ATTACH THE TAX CLEARANCE CERTIFICATE]</p>
+                    </div>
                 </div>
-            </div>
-        </footer>
-    </div>
 
-    <!-- JavaScript to toggle visibility -->
-    <script>
-        document.getElementById('open-form-btn').addEventListener('click', function() {
-            // Hide the front cover
-            document.getElementById('front-cover').classList.add('hidden');
-            document.getElementById('back-cover').classList.add('hidden');
+                <!-- Question 12: Reason for Suitability -->
+                <div class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+                    <label for="reason_1" class="label-bar-aesthetic rounded-t-lg">Give reason(s) why you should consider yourself suitable to this election in your own handwriting</label>
+                    <div class="p-4 bg-white space-y-3">
+                        <!-- Switched to a textarea for a more appropriate multi-line input -->
+                        <textarea id="reason_1" name="reason" rows="5" class="modern-input" placeholder="Explain your reasons..."></textarea>
+                    </div>
+                </div>
+
+            </div>
             
-            // Show the main form content
-            document.getElementById('form-content').classList.remove('hidden');
-            
-            // Scroll to the top of the form for a smooth transition
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
+            <!-- Page Number -->
+            <div class="text-center text-gray-500 font-medium mt-16">
+                - 03 -
+            </div>
+        </form>
+    </div>
 
 </body>
 </html>
